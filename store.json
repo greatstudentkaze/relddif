@@ -1,0 +1,83 @@
+{
+  "hosts": [
+    "dev-cdn.sbis.ru",
+    "dev-online.sbis.ru",
+    "pre-test-cdn.sbis.ru",
+    "pre-test-online.sbis.ru",
+    "pre-test.sabyget.ru",
+    "pre-test-presto.saby.ru",
+    "test-cdn.sbis.ru",
+    "test-online.sbis.ru",
+    "test.sabyget.ru",
+    "test-lk.sbis.ru",
+    "test-presto.saby.ru",
+    "fix-cdn.sbis.ru",
+    "fix-online.sbis.ru",
+    "fix.sabyget.ru",
+    "fix.sabytrade.ru",
+    "fix-presto.saby.ru",
+    "fix-presto.sbis.ru",
+    "test-presto.sbis.ru",
+    "fix-rest.saby.ru",
+    "rc-cdn.sbis.ru",
+    "rc-online.sbis.ru",
+    "online.sbis.ru"
+  ],
+  "origins": {
+    "dev-cdn.sbis.ru": "dev-online.sbis.ru",
+    "dev-online.sbis.ru": "dev-online.sbis.ru",
+    "pre-test-cdn.sbis.ru": "pre-test-online.sbis.ru",
+    "pre-test-online.sbis.ru": "pre-test-online.sbis.ru",
+    "pre-test-presto.saby.ru": "pre-test-presto.saby.ru",
+    "test-cdn.sbis.ru": "test-online.sbis.ru",
+    "test-online.sbis.ru": "test-online.sbis.ru",
+    "test-lk.sbis.ru": "test-lk.sbis.ru",
+    "test.sabyget.ru": "test.sabyget.ru",
+    "test-presto.saby.ru": "test-presto.saby.ru",
+    "fix-cdn.sbis.ru": "fix-online.sbis.ru",
+    "fix-online.sbis.ru": "fix-online.sbis.ru",
+    "fix.sabyget.ru": "fix.sabyget.ru",
+    "fix.sabytrade.ru": "fix.sabytrade.ru",
+    "fix-presto.saby.ru": "fix-presto.saby.ru",
+    "fix-presto.sbis.ru": "fix-presto.sbis.ru",
+    "test-presto.sbis.ru": "test-presto.sbis.ru",
+    "fix-rest.saby.ru": "fix-rest.saby.ru",
+    "rc-cdn.sbis.ru": "rc-online.sbis.ru",
+    "rc-online.sbis.ru": "rc-online.sbis.ru",
+    "online.sbis.ru": "online.sbis.ru"
+  },
+  "prefixes": {
+    "/static/resources/WorksManagement": "/Users/gsk/tensor/wm-test/application/WorksManagement",
+    "/static/resources/Vehicle/": "/Users/gsk/tensor/wm-test/application/Vehicle/",
+    "/static/resources/VehicleCore/": "/Users/gsk/tensor/wm-test/application/VehicleCore/",
+    "/static/resources/TimeZones": "/Users/gsk/tensor/time-zone/application/TimeZones",
+    "/static/resources/DocFine/": "/Users/gsk/tensor/doc-fine/application/DocFine/",
+    "/static/resources/SabyMaps/": "/Users/gsk/tensor/sabymaps/application/SabyMaps/",
+    "/static/resources/Delivery/Order/Card/Client.js": "/Users/gsk/tensor/presto-delivery/client/Delivery/Order/Card/Client.js",
+    "/static/resources/Delivery/Order/Card.js": "/Users/gsk/tensor/presto-delivery/client/Delivery/Order/Card.js",
+    "/static/resources/Delivery/Order/Utils/DeliveryPrice.js": "/Users/gsk/tensor/presto-delivery/client/Delivery/Order/Utils/DeliveryPrice.js",
+    "/static/resources/FMCore/": "/Users/gsk/tensor/core/application/FMCore/"
+  },
+  "modules": {
+    "Vehicle": {
+      "remotePrefix": "/static/resources/Vehicle/",
+      "localPrefix": "/Users/gsk/tensor/wm-test/application/Vehicle/",
+      "enabled": true
+    },
+    "VehicleCore": {
+      "remotePrefix": "/static/resources/VehicleCore/",
+      "localPrefix": "/Users/gsk/tensor/wm-test/application/VehicleCore/",
+      "enabled": true
+    },
+    "WorksManagement": {
+      "remotePrefix": "/static/resources/WorksManagement/",
+      "localPrefix": "/Users/gsk/tensor/wm-test/application/WorksManagement/",
+      "enabled": false
+    },
+    "TimeZones": {
+      "remotePrefix": "/static/resources/TimeZones/",
+      "localPrefix": "/Users/gsk/tensor/time-zone/application/TimeZones",
+      "enabled": true
+    }
+  }
+}

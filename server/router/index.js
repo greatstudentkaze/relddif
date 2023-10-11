@@ -15,7 +15,7 @@ const router = new Router();
 router.get('/modules', userController.modules);
 router.post('/modules/enable', userController.enableModule);
 router.post('/modules', userController.addModule);
-router.post('/proxy/enable', userController.enableProxy);
-router.post('/proxy/disable', userController.disableProxy);
+router.get('/capturing', userController.getCapturingState);
+router.post('/capturing', userController.updateCapturingState);
 
 module.exports = router

@@ -3,11 +3,8 @@
 // const ApiError = require('../exceptions/api-error');
 const fileName = '../store.json';
 const store = require(fileName);
-const { execSync } = require('child_process');
-
 const fs = require('fs');
-
-
+const { CapturingService } = require('../capturing/service.js');
 
 class UserController {
     async registration(req, res, next) {
@@ -133,21 +130,27 @@ class UserController {
         }
     }
 
-    async enableProxy(req, res, next) {
+    async getCapturingState(req, res, next) {
         try {
-            execSync('networksetup -setwebproxystate "Wi-Fi" on');
-            execSync('networksetup -setsecurewebproxystate "Wi-Fi" on');
+            const capturingState = CapturingService.getCapturingState();
 
-            return res.json();
+            return res.json(capturingState);
         } catch (e) {
             next(e);
         }
     }
 
-    async disableProxy(req, res, next) {
+    async updateCapturingState(req, res, next) {
         try {
-            execSync('networksetup -setwebproxystate "Wi-Fi" off');
-            execSync('networksetup -setsecurewebproxystate "Wi-Fi" off');
+            const { command } = req.body;
+
+            if (command === 'enable') {
+                CapturingService.enable();
+            } else if (command === 'disable') {
+                CapturingService.disable();
+            } else {
+                res.status(400).send('wrong command');
+            }
 
             return res.json();
         } catch (e) {

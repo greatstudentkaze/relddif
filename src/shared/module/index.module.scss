@@ -1,0 +1,51 @@
+.module {
+    width: fit-content;
+
+    &:not(:last-child) {
+        margin-bottom: 10%;
+    }
+}
+
+.moduleHeader {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    font-size: 32px;
+    line-height: 1.3em;
+    font-weight: 700;
+    color: black;
+}
+
+.addBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 24px;
+    height: 24px;
+    padding: 14px;
+    margin-left: 18px;
+    background: #1976d2;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        position: absolute;
+
+        display: block;
+        width: 18px;
+        height: 3px;
+
+        content: '';
+
+        background: white;
+    }
+
+    &::before {
+        transform: rotate(90deg);
+    }
+}

@@ -15,6 +15,7 @@ const router = new Router();
 router.get('/modules', userController.modules);
 router.post('/modules/enable', userController.enableModule);
 router.post('/modules', userController.addModule);
+router.delete('/modules', userController.deleteModule);
 router.get('/capturing', userController.getCapturingState);
 router.post('/capturing', userController.updateCapturingState);
 

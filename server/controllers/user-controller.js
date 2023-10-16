@@ -5,6 +5,7 @@ const fileName = '../store.json';
 const store = require(fileName);
 const fs = require('fs');
 const { CapturingService } = require('../capturing/service.js');
+const { ModuleService } = require('../module-manager/service.js');
 
 class UserController {
     async registration(req, res, next) {
@@ -89,25 +90,23 @@ class UserController {
 
     async addModule(req, res, next) {
         try {
-            const {moduleName, localPath} = req.body;
+            const { moduleName, localPath } = req.body;
 
-            const newStore = {...store};
-            newStore.modules[moduleName] = {
-                "remotePrefix": `/static/resources/${moduleName}/`,
-                "localPrefix": localPath,
-                "enabled": true
-            };
+            const modules = await ModuleService.create({ moduleName, localPath });
 
-            fs.writeFile(fileName, JSON.stringify(newStore, null, 2), function writeJSON(err) {
-                if (err) return console.log(err);
+            return res.json(modules);
+        } catch (e) {
+            next(e);
+        }
+    }
 
-                // console.log(JSON.stringify(file));
-                // console.log('writing to ' + fileName);
+    async deleteModule(req, res, next) {
+        try {
+            const { moduleName } = req.body;
 
-                return res.json(fs.readFileSync(fileName, 'utf8'));
-            });
+            const modules = await ModuleService.delete(moduleName);
 
-            // return res.json(userData);
+            return res.json(modules);
         } catch (e) {
             next(e);
         }
@@ -115,7 +114,9 @@ class UserController {
 
     async modules(req, res, next) {
         try {
-            return res.json(store.modules);
+            const modules = await ModuleService.getAll();
+
+            return res.json(modules);
         } catch (e) {
             next(e);
         }

@@ -6,6 +6,7 @@ const store = require(fileName);
 const fs = require('fs');
 const { CapturingService } = require('../capturing/service.js');
 const { ModuleService } = require('../module-manager/service.js');
+const { HostService } = require('../host-manager/service.js');
 
 class UserController {
     async registration(req, res, next) {
@@ -127,6 +128,32 @@ class UserController {
             const modules = await ModuleService.getAll();
 
             return res.json(modules);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getAllHosts(req, res, next) {
+        try {
+            return res.json(await HostService.getAll());
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async createHost(req, res, next) {
+        try {
+            const { host } = req.body;
+
+            return res.json(await HostService.create({ host }));
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async deleteHost(req, res, next) {
+        try {
+            return res.json(await HostService.delete(req.params.host));
         } catch (e) {
             next(e);
         }

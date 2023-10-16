@@ -1,63 +1,4 @@
 {
-  "hosts": [
-    "dev-cdn.sbis.ru",
-    "dev-online.sbis.ru",
-    "pre-test-cdn.sbis.ru",
-    "pre-test-online.sbis.ru",
-    "pre-test.sabyget.ru",
-    "pre-test-presto.saby.ru",
-    "test-cdn.sbis.ru",
-    "test-online.sbis.ru",
-    "test.sabyget.ru",
-    "test-lk.sbis.ru",
-    "test-presto.saby.ru",
-    "fix-cdn.sbis.ru",
-    "fix-online.sbis.ru",
-    "fix.sabyget.ru",
-    "fix.sabytrade.ru",
-    "fix-presto.saby.ru",
-    "fix-presto.sbis.ru",
-    "test-presto.sbis.ru",
-    "fix-rest.saby.ru",
-    "rc-cdn.sbis.ru",
-    "rc-online.sbis.ru",
-    "online.sbis.ru"
-  ],
-  "origins": {
-    "dev-cdn.sbis.ru": "dev-online.sbis.ru",
-    "dev-online.sbis.ru": "dev-online.sbis.ru",
-    "pre-test-cdn.sbis.ru": "pre-test-online.sbis.ru",
-    "pre-test-online.sbis.ru": "pre-test-online.sbis.ru",
-    "pre-test-presto.saby.ru": "pre-test-presto.saby.ru",
-    "test-cdn.sbis.ru": "test-online.sbis.ru",
-    "test-online.sbis.ru": "test-online.sbis.ru",
-    "test-lk.sbis.ru": "test-lk.sbis.ru",
-    "test.sabyget.ru": "test.sabyget.ru",
-    "test-presto.saby.ru": "test-presto.saby.ru",
-    "fix-cdn.sbis.ru": "fix-online.sbis.ru",
-    "fix-online.sbis.ru": "fix-online.sbis.ru",
-    "fix.sabyget.ru": "fix.sabyget.ru",
-    "fix.sabytrade.ru": "fix.sabytrade.ru",
-    "fix-presto.saby.ru": "fix-presto.saby.ru",
-    "fix-presto.sbis.ru": "fix-presto.sbis.ru",
-    "test-presto.sbis.ru": "test-presto.sbis.ru",
-    "fix-rest.saby.ru": "fix-rest.saby.ru",
-    "rc-cdn.sbis.ru": "rc-online.sbis.ru",
-    "rc-online.sbis.ru": "rc-online.sbis.ru",
-    "online.sbis.ru": "online.sbis.ru"
-  },
-  "prefixes": {
-    "/static/resources/WorksManagement": "/Users/gsk/tensor/wm-test/application/WorksManagement",
-    "/static/resources/Vehicle/": "/Users/gsk/tensor/wm-test/application/Vehicle/",
-    "/static/resources/VehicleCore/": "/Users/gsk/tensor/wm-test/application/VehicleCore/",
-    "/static/resources/TimeZones": "/Users/gsk/tensor/time-zone/application/TimeZones",
-    "/static/resources/DocFine/": "/Users/gsk/tensor/doc-fine/application/DocFine/",
-    "/static/resources/SabyMaps/": "/Users/gsk/tensor/sabymaps/application/SabyMaps/",
-    "/static/resources/Delivery/Order/Card/Client.js": "/Users/gsk/tensor/presto-delivery/client/Delivery/Order/Card/Client.js",
-    "/static/resources/Delivery/Order/Card.js": "/Users/gsk/tensor/presto-delivery/client/Delivery/Order/Card.js",
-    "/static/resources/Delivery/Order/Utils/DeliveryPrice.js": "/Users/gsk/tensor/presto-delivery/client/Delivery/Order/Utils/DeliveryPrice.js",
-    "/static/resources/FMCore/": "/Users/gsk/tensor/core/application/FMCore/"
-  },
   "modules": {
     "Vehicle": {
       "remotePrefix": "/static/resources/Vehicle/",
@@ -77,6 +18,96 @@
     "TimeZones": {
       "remotePrefix": "/static/resources/TimeZones/",
       "localPrefix": "/Users/gsk/tensor/time-zone/application/TimeZones",
+      "enabled": true
+    }
+  },
+  "hosts": {
+    "dev-cdn.sbis.ru": {
+      "origin": "dev-online.sbis.ru",
+      "enabled": true
+    },
+    "dev-online.sbis.ru": {
+      "origin": "dev-online.sbis.ru",
+      "enabled": true
+    },
+    "pre-test-cdn.sbis.ru": {
+      "origin": "pre-test-online.sbis.ru",
+      "enabled": true
+    },
+    "pre-test-online.sbis.ru": {
+      "origin": "pre-test-online.sbis.ru",
+      "enabled": true
+    },
+    "pre-test.sabyget.ru": {
+      "origin": "pre-test.sabyget.ru",
+      "enabled": true
+    },
+    "pre-test-presto.saby.ru": {
+      "origin": "pre-test-presto.saby.ru",
+      "enabled": true
+    },
+    "test-cdn.sbis.ru": {
+      "origin": "test-online.sbis.ru",
+      "enabled": true
+    },
+    "test-online.sbis.ru": {
+      "origin": "test-online.sbis.ru",
+      "enabled": true
+    },
+    "test.sabyget.ru": {
+      "origin": "test.sabyget.ru",
+      "enabled": true
+    },
+    "test-lk.sbis.ru": {
+      "origin": "test-lk.sbis.ru",
+      "enabled": true
+    },
+    "test-presto.saby.ru": {
+      "origin": "test-presto.saby.ru",
+      "enabled": true
+    },
+    "fix-cdn.sbis.ru": {
+      "origin": "fix-online.sbis.ru",
+      "enabled": true
+    },
+    "fix-online.sbis.ru": {
+      "origin": "fix-online.sbis.ru",
+      "enabled": true
+    },
+    "fix.sabyget.ru": {
+      "origin": "fix.sabyget.ru",
+      "enabled": true
+    },
+    "fix.sabytrade.ru": {
+      "origin": "fix.sabytrade.ru",
+      "enabled": true
+    },
+    "fix-presto.saby.ru": {
+      "origin": "fix-presto.saby.ru",
+      "enabled": true
+    },
+    "fix-presto.sbis.ru": {
+      "origin": "fix-presto.sbis.ru",
+      "enabled": true
+    },
+    "test-presto.sbis.ru": {
+      "origin": "test-presto.sbis.ru",
+      "enabled": true
+    },
+    "fix-rest.saby.ru": {
+      "origin": "fix-rest.saby.ru",
+      "enabled": true
+    },
+    "rc-cdn.sbis.ru": {
+      "origin": "rc-online.sbis.ru",
+      "enabled": true
+    },
+    "rc-online.sbis.ru": {
+      "origin": "rc-online.sbis.ru",
+      "enabled": true
+    },
+    "online.sbis.ru": {
+      "origin": "online.sbis.ru",
       "enabled": true
     }
   }

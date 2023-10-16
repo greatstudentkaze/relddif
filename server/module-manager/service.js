@@ -18,6 +18,19 @@ class ModuleService {
 
         return this.#updateStore(newStore);
     }
+    static async update(moduleName, { localPath }) {
+        const newStore = { ...await this.#getStore() };
+
+        if (!newStore.modules?.hasOwnProperty(moduleName)) {
+            throw new Error(`${moduleName} not found`);
+        }
+
+        if (localPath) {
+            newStore.modules[moduleName].localPrefix = localPath;
+        }
+
+        return this.#updateStore(newStore);
+    }
 
     static async getAll() {
         const { modules } = await this.#getStore();

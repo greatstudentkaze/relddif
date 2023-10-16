@@ -112,6 +112,16 @@ class UserController {
         }
     }
 
+    async updateModule(req, res, next) {
+        try {
+            const modules = await ModuleService.update(req.params.moduleName, req.body);
+
+            return res.json(modules);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async modules(req, res, next) {
         try {
             const modules = await ModuleService.getAll();

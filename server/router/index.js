@@ -16,6 +16,7 @@ router.get('/modules', userController.modules);
 router.post('/modules/enable', userController.enableModule);
 router.post('/modules', userController.addModule);
 router.delete('/modules', userController.deleteModule);
+router.patch('/modules/:moduleName', userController.updateModule);
 router.get('/capturing', userController.getCapturingState);
 router.post('/capturing', userController.updateCapturingState);
 

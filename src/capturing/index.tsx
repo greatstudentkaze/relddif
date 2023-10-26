@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import checkedIcon from '@mui/icons-material/checkedIcon';
 
-import style from './index.module.scss';
+import style from './index.module.css';
 
 const Capturing = () => {
     return (

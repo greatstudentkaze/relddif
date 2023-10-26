@@ -1,0 +1,26 @@
+.mainWrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1240px;
+    padding: 40px 20px;
+    margin: 0 auto;
+}
+
+.moduleWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+@media (max-width: 420px) {
+    .mainWrapper {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .moduleWrapper {
+        gap: 40px;
+    }
+}

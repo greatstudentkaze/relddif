@@ -2,13 +2,15 @@ import ModuleManager from './module-manager';
 import HostManager from './host-manager';
 import Capturing from './capturing';
 
-import style from './App.module.scss';
+import style from './App.module.css';
 
 function App() {
     return (
         <div className={style.mainWrapper}>
-            <ModuleManager />
-            <HostManager />
+            <div className={style.moduleWrapper}>
+                <ModuleManager />
+                <HostManager />
+            </div>
             <Capturing />
         </div>
     );

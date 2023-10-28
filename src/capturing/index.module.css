@@ -1,4 +1,5 @@
 .capturing {
+    display: flex;
     height: fit-content;
 }
 

@@ -10,7 +10,7 @@ const ModuleManager: FC = () => {
     return (
         <div>
             <div className={style.moduleHeader}>
-                <Title moduleName='Modules' />
+                <Title moduleName="Modules" />
                 <Popup>
                     <h2>Add new module</h2>
                 </Popup>

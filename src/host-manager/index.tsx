@@ -10,7 +10,7 @@ const HostManager: FC = () => {
     return (
          <div>
             <div className={style.moduleHeader}>
-                <Title moduleName='Hosts' />
+                <Title moduleName="Hosts" />
                 <Popup>
                     <h2>Add new host</h2>
                 </Popup>

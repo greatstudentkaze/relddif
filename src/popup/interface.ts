@@ -1,3 +1,4 @@
-export interface PopupProps {
-    children: React.ReactNode
-}
+export interface PopupProps extends React.PropsWithChildren<{
+  isOpened: boolean;
+  handleClose: () => void;
+}> {}

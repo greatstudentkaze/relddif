@@ -15,7 +15,9 @@ const HostManager: FC = () => {
     return (
          <div>
             <div className={style.moduleHeader}>
-                <Title moduleName="Hosts" />
+                <Title>
+                    Hosts
+                </Title>
                 <OpenButton handleOpen={handleOpen} />
                 <Popup isOpened={isOpened} handleClose={handleClose}>
                     <h2>Add new host</h2>

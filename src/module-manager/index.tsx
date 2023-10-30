@@ -15,7 +15,9 @@ const ModuleManager: FC = () => {
     return (
         <div>
             <div className={style.moduleHeader}>
-                <Title moduleName="Modules" />
+                <Title>
+                    Modules
+                </Title>
                 <OpenButton handleOpen={handleOpen} />
                 <Popup isOpened={isOpened} handleClose={handleClose}>
                     <h2>Add new module</h2>

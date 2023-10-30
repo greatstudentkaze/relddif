@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
+import { Typography } from "@mui/material";
 
-import { TitleProps } from "./interface";
-import style from './index.module.css';
-
-const Title: FC<TitleProps> = ({moduleName}) => {
+const Title: FC<PropsWithChildren> = ({children}) => {
     return(
-        <h2 className={style.title}>{moduleName}</h2>
+        <Typography variant="h4" component="h2">
+            {children}
+        </Typography>
     );
 };
 

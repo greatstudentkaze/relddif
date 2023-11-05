@@ -1,0 +1,25 @@
+.modalBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    box-shadow: 0 5px 30px 0 rgba(0,0,0,0.2);
+    padding: 40px;
+}
+
+h2
+{
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+}
+
+@media (max-width: 420px) {
+    .modalBox {
+        padding: 20px;
+    }
+}

@@ -3,22 +3,22 @@
     "Vehicle": {
       "remotePrefix": "/static/resources/Vehicle/",
       "localPrefix": "/Users/gsk/tensor/wm-test/application/Vehicle/",
-      "enabled": true
+      "enabled": false
     },
     "VehicleCore": {
       "remotePrefix": "/static/resources/VehicleCore/",
       "localPrefix": "/Users/gsk/tensor/wm-test/application/VehicleCore/",
-      "enabled": true
+      "enabled": false
     },
     "WorksManagement": {
       "remotePrefix": "/static/resources/WorksManagement/",
       "localPrefix": "/Users/gsk/tensor/wm-test/application/WorksManagement/",
       "enabled": false
     },
-    "TimeZones": {
-      "remotePrefix": "/static/resources/TimeZones/",
-      "localPrefix": "/Users/gsk/tensor/time-zone/application/TimeZones",
-      "enabled": true
+    "jknwfdsf": {
+      "remotePrefix": "/static/resources/jknwfdsf/",
+      "localPrefix": "dsgdsfg",
+      "enabled": false
     }
   },
   "hosts": {

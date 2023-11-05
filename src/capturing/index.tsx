@@ -1,12 +1,16 @@
+import { FC } from 'react';
 import Button from '@mui/material/Button';
 // import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import style from './index.module.css';
 
-const Capturing = () => {
+interface CapturingProps {
+    className?: string;
+}
+
+const Capturing: FC<CapturingProps> = ({ className }) => {
     return (
         <Button
-            className={style.capturing}
+            className={className}
             variant="contained"
             endIcon={<CloseIcon />}
         >

@@ -11,7 +11,7 @@ function App() {
                 <ModuleManager />
                 <HostManager />
             </div>
-            <Capturing />
+            <Capturing className={style.capturing} />
         </div>
     );
 }

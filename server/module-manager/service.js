@@ -18,7 +18,7 @@ class ModuleService {
 
         return this.#updateStore(newStore);
     }
-    static async update(moduleName, { localPath }) {
+    static async update(moduleName, { localPath, enabled }) {
         const newStore = { ...await this.#getStore() };
 
         if (!newStore.modules?.hasOwnProperty(moduleName)) {
@@ -27,6 +27,10 @@ class ModuleService {
 
         if (localPath) {
             newStore.modules[moduleName].localPrefix = localPath;
+        }
+
+        if (typeof enabled === 'boolean') {
+            newStore.modules[moduleName].enabled = enabled;
         }
 
         return this.#updateStore(newStore);

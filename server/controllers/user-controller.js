@@ -69,21 +69,11 @@ class UserController {
 
     async enableModule(req, res, next) {
         try {
-            const {moduleName, enabled} = req.body;
+            const { moduleName, enabled } = req.body;
 
-            const newStore = {...store};
-            newStore.modules[moduleName].enabled = enabled;
+            const modules = await ModuleService.update(moduleName, { enabled });
 
-            fs.writeFile(fileName, JSON.stringify(newStore, null, 2), function writeJSON(err) {
-                if (err) return console.log(err);
-
-                // console.log(JSON.stringify(file));
-                // console.log('writing to ' + fileName);
-
-                return res.json(fs.readFileSync(fileName, 'utf8'));
-            });
-
-            // return res.json(userData);
+            return res.json(modules);
         } catch (e) {
             next(e);
         }

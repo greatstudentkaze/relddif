@@ -3,7 +3,7 @@ import mimetypes
 from mitmproxy import http
 import json
 
-store_file = open ("store.json", "r")
+store_file = open ("../store.json", "r")
 store = json.loads(store_file.read())
 
 # Хосты, на которых происходит подмена файлов
@@ -34,7 +34,7 @@ def get_mimetype(path):
 # Функция получения заголовка Access-Control-Allow-Origin
 def get_origin_header(flow):
     request = flow.request
-    return request.scheme + '://' + hosts[request.pretty_host].origin
+    return request.scheme + '://' + hosts[request.pretty_host]["origin"]
 
 # Обработчик события получения запроса от клиента (браузера)
 # Именно в этом обработчике происходит подмена файлов
@@ -48,13 +48,13 @@ def request(flow):
     for moduleName in modules.keys():
         module = modules[moduleName]
 
-        if module.enabled is False: continue
+        if module["enabled"] is False: continue
 
-        remote_prefix = module.remotePrefix
+        remote_prefix = module["remotePrefix"]
 
         if not remote_path.startswith(remote_prefix): continue
 
-        local_prefix = module.localPrefix
+        local_prefix = module["localPrefix"]
         local_path = remote_path.replace(remote_prefix, local_prefix)
         print(local_path)
         file = get_file(local_path)

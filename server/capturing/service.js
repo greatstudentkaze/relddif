@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const PROXY_PORT = 1232;
 
+const ADAPTER = 'Wi-Fi';
+
 class CapturingService {
     static #mitmdumpProcess = null;
 
@@ -26,8 +28,8 @@ class CapturingService {
     }
 
     static getCapturingState = () => {
-        const webProxyState = execSync('networksetup -getwebproxy "Wi-Fi"').toString();
-        const secureWebProxyState = execSync('networksetup -getsecurewebproxy "Wi-Fi"').toString();
+        const webProxyState = execSync(`networksetup -getwebproxy "${ADAPTER}"`).toString();
+        const secureWebProxyState = execSync(`networksetup -getsecurewebproxy "${ADAPTER}"`).toString();
 
         const isWebProxyEnabled = this.#isProxyEnabled(this.#parseProxyState(webProxyState));
         const isSecureWebProxyEnabled = this.#isProxyEnabled(this.#parseProxyState(secureWebProxyState));
@@ -39,15 +41,15 @@ class CapturingService {
     }
 
     static #enableProxy = () => {
-        execSync('networksetup -setwebproxystate "Wi-Fi" on');
-        execSync(`networksetup -setwebproxy "Wi-Fi" localhost ${PROXY_PORT}`);
-        execSync('networksetup -setsecurewebproxystate "Wi-Fi" on');
-        execSync(`networksetup -setsecurewebproxy "Wi-Fi" localhost ${PROXY_PORT}`);
+        execSync(`networksetup -setwebproxystate "${ADAPTER}" on`);
+        execSync(`networksetup -setwebproxy "${ADAPTER}" localhost ${PROXY_PORT}`);
+        execSync(`networksetup -setsecurewebproxystate "${ADAPTER}" on`);
+        execSync(`networksetup -setsecurewebproxy "${ADAPTER}" localhost ${PROXY_PORT}`);
     }
 
     static #disableProxy = () => {
-        execSync('networksetup -setwebproxystate "Wi-Fi" off');
-        execSync('networksetup -setsecurewebproxystate "Wi-Fi" off');
+        execSync(`networksetup -setwebproxystate "${ADAPTER}" off`);
+        execSync(`networksetup -setsecurewebproxystate "${ADAPTER}" off`);
     }
 
     static #enableMitmdump = async () => {

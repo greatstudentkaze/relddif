@@ -13,12 +13,7 @@
     "WorksManagement": {
       "remotePrefix": "/static/resources/WorksManagement/",
       "localPrefix": "/Users/gsk/tensor/wm-test/application/WorksManagement/",
-      "enabled": false
-    },
-    "jknwfdsf": {
-      "remotePrefix": "/static/resources/jknwfdsf/",
-      "localPrefix": "dsgdsfg",
-      "enabled": false
+      "enabled": true
     }
   },
   "hosts": {

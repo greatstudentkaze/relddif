@@ -1,6 +1,9 @@
 import { api } from '../shared/api';
 
-export interface AddModuleDTO {}
+export interface AddModulePayload {
+    moduleName: string,
+    localPath: string,
+}
 
 export type GetModulesResponse = Record<string, {
     remotePrefix: string;
@@ -25,15 +28,14 @@ export class ModuleService {
         }
     };
 
-    // static addModule = async (payload: AddModuleDTO): Promise<void> => {
-    //     try {
-    //         debugger
-    //         // await api.post('capturing', payload);
-    //     } catch (err) {
-    //         console.log(err);
-    //         throw err;
-    //     }
-    // };
+    static addModule = async (payload: AddModulePayload): Promise<void> => {
+        try {
+            await api.post('modules', payload);
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    };
 
     static toggleModuleState = async (payload: ToggleModuleStatePayload): Promise<void> => {
         try {

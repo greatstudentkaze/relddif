@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { Controller, FormProvider, useForm  } from "react-hook-form";
+import { Button, TextField } from "@mui/material";
 
 import { ModuleService } from './service';
 import Popup from '../popup';
@@ -9,16 +11,30 @@ import AddButton from '../shared/add-button';
 
 import style from './index.module.css';
 
+interface addModuleType {
+    moduleName: string,
+    localPath: string,
+}
+
 const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
+    const methods = useForm();
+    const { control, handleSubmit, reset } = methods;
 
     const { isLoading, isSuccess, data, refetch } = useQuery(
         'modules',
-        ModuleService.getModules
+        ModuleService.getModules,
     );
 
     const mutation = useMutation({
         mutationFn: ModuleService.toggleModuleState,
+        onSuccess: () => {
+            refetch();
+        },
+    });
+
+    const addModuleMutation = useMutation({
+        mutationFn: ModuleService.addModule,
         onSuccess: () => {
             refetch();
         },
@@ -40,6 +56,14 @@ const ModuleManager: FC = () => {
     const toggleModule = (module: string, isEnabled: boolean): void => {
         mutation.mutate({ moduleName: module, enabled: isEnabled });
     };
+
+    const onSubmit = ({moduleName, localPath}: addModuleType): void => {
+        addModuleMutation.mutate({ moduleName, localPath });
+        reset({
+            moduleName: "",
+            localPath: ""
+        });
+    }
 
     return (
         <div>

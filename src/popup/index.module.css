@@ -4,6 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: fit-content;
+    min-width: 342px;
     background-color: #ffffff;
     border: 2px solid #000000;
     box-shadow: 0 5px 30px 0 rgba(0,0,0,0.2);
@@ -21,5 +22,6 @@ h2
 @media (max-width: 420px) {
     .modalBox {
         padding: 20px;
+        min-width: 320px;
     }
 }

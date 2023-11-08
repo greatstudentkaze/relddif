@@ -1,20 +1,16 @@
 import { FC, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { Controller, FormProvider, useForm  } from "react-hook-form";
-import { Button, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { Button } from "@mui/material";
 
-import { ModuleService } from './service';
+import { ModuleService, AddModulePayload } from './service';
 import Popup from '../popup';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
+import InputField from '../shared/Input-field';
 
 import style from './index.module.css';
-
-interface addModuleType {
-    moduleName: string,
-    localPath: string,
-}
 
 const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
@@ -57,12 +53,14 @@ const ModuleManager: FC = () => {
         mutation.mutate({ moduleName: module, enabled: isEnabled });
     };
 
-    const onSubmit = ({moduleName, localPath}: addModuleType): void => {
+    const onSubmit = ({moduleName, localPath}: AddModulePayload): void => {
         addModuleMutation.mutate({ moduleName, localPath });
-        reset({
-            moduleName: "",
-            localPath: ""
-        });
+        if (isSuccess) {
+            reset({
+                moduleName: "",
+                localPath: ""
+            });
+        }
     }
 
     return (
@@ -72,8 +70,27 @@ const ModuleManager: FC = () => {
                     Modules
                 </Title>
                 <AddButton onClickOpen={open} />
-                <Popup isOpened={isOpened} close={close}>
-                    <h2>Add new module</h2>
+                <Popup isOpened={isOpened} handleClose={close}>
+                    <Title>
+                        Add new module
+                    </Title>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className={style.form}>
+                            <InputField
+                                fieldName="moduleName"
+                                control={control}
+                                rules={{required: 'Module name is required'}}
+                                label="Module name"
+                            />
+                            <InputField
+                                fieldName="localPath"
+                                control={control}
+                                rules={{required: 'Local path is required'}}
+                                label="Local path"
+                            />
+                        </div>
+                        <Button type="submit" variant="contained">Submit</Button>
+                    </form>
                 </Popup>
             </div>
             <List

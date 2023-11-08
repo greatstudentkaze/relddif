@@ -1,20 +1,16 @@
 import { FC, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { Controller, FormProvider, useForm  } from "react-hook-form";
-import { Button, TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { Button } from "@mui/material";
 
-import { ModuleService } from './service';
+import { ModuleService, AddModulePayload } from './service';
 import Popup from '../popup';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
+import InputField from '../shared/Input-field';
 
 import style from './index.module.css';
-
-interface addModuleType {
-    moduleName: string,
-    localPath: string,
-}
 
 const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
@@ -57,12 +53,14 @@ const ModuleManager: FC = () => {
         mutation.mutate({ moduleName: module, enabled: isEnabled });
     };
 
-    const onSubmit = ({moduleName, localPath}: addModuleType): void => {
+    const onSubmit = ({moduleName, localPath}: AddModulePayload): void => {
         addModuleMutation.mutate({ moduleName, localPath });
-        reset({
-            moduleName: "",
-            localPath: ""
-        });
+        if (isSuccess) {
+            reset({
+                moduleName: "",
+                localPath: ""
+            });
+        }
     }
 
     return (
@@ -76,37 +74,23 @@ const ModuleManager: FC = () => {
                     <Title>
                         Add new module
                     </Title>
-                    <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className={style.form}>
-                            <Controller
-                                name="moduleName"
+                            <InputField
+                                fieldName="moduleName"
                                 control={control}
-                                rules={{ required: 'Module name is required' }}
-                                render={({ field: { value, onChange } }) => (
-                                    <TextField
-                                        value={value}
-                                        onChange={onChange}
-                                        label="Module name"
-                                        variant="standard"
-                                    />
-                                )}
+                                rules={{required: 'Module name is required'}}
+                                label="Module name"
                             />
-                            <Controller
-                                name="localPath"
+                            <InputField
+                                fieldName="localPath"
                                 control={control}
-                                rules={{ required: 'Local path is required' }}
-                                render={({ field: { value, onChange } }) => (
-                                    <TextField
-                                        value={value}
-                                        onChange={onChange}
-                                        label="Local path"
-                                        variant="standard"
-                                    />
-                                )}
+                                rules={{required: 'Local path is required'}}
+                                label="Local path"
                             />
                         </div>
-                        <Button onClick={handleSubmit(onSubmit)} variant="contained">Submit</Button>
-                    </FormProvider>
+                        <Button type="submit" variant="contained">Submit</Button>
+                    </form>
                 </Popup>
             </div>
             <List

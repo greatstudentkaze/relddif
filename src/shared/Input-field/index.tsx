@@ -4,16 +4,17 @@ import { TextField } from "@mui/material";
 
 import {InputFieldProps} from './interface';
 
-const InputField: FC<InputFieldProps> = ({fieldName, control, rules, label}) => {
+const InputField: FC<InputFieldProps> = ({name, control, rules, label, error}) => {    
     return(
         <Controller
-            name={fieldName}
+            name={name}
             control={control}
             rules={rules}
             render={({ field: { value, onChange } }) => (
                 <TextField
                     value={value}
                     onChange={onChange}
+                    error={error}
                     label={label}
                     variant="standard"
                 />

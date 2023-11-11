@@ -3,8 +3,10 @@ import { useMutation, useQuery } from 'react-query';
 import Button from '@mui/material/Button';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { CapturingService } from './service';
+
+import { CapturingSettings } from './settings';
 import { Command } from './constants';
+import { CapturingService } from './service';
 
 interface CapturingProps {
     className?: string;
@@ -44,14 +46,20 @@ const Capturing: FC<CapturingProps> = ({ className }) => {
     };
 
     return (
-        <Button
-            className={className}
-            variant="contained"
-            endIcon={enabled ? <CheckIcon /> : <CloseIcon />}
-            onClick={handleClick}
-        >
-            Capturing {enabled ? 'On' : 'Off'}
-        </Button>
+        <div className={className}>
+            <Button
+                style={{
+                    marginRight: '12px'
+                }}
+                variant="contained"
+                endIcon={enabled ? <CheckIcon /> : <CloseIcon />}
+                onClick={handleClick}
+            >
+                Capturing {enabled ? 'On' : 'Off'}
+            </Button>
+
+            <CapturingSettings />
+        </div>
     );
 };
 

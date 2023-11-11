@@ -71,7 +71,11 @@ class UserController {
         try {
             const { moduleName, enabled } = req.body;
 
+            CapturingService.disable();
+
             const modules = await ModuleService.update(moduleName, { enabled });
+
+            await CapturingService.enable();
 
             return res.json(modules);
         } catch (e) {

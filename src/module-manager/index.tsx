@@ -48,7 +48,7 @@ const ModuleManager: FC = () => {
                     Modules
                 </Title>
                 <AddButton onClickOpen={open} />
-                <Popup isOpened={isOpened} handleClose={close}>
+                <Popup isOpened={isOpened} close={close}>
                     <h2>Add new module</h2>
                 </Popup>
             </div>

@@ -6,12 +6,12 @@ import { PopupProps } from './interface';
 
 import style from './index.module.css';
 
-const Popup: FC<PopupProps> = ({children, isOpened, handleClose}) => {
+const Popup: FC<PopupProps> = ({ children, isOpened, close }) => {
   return (
     <div>
       <Modal
         open={isOpened}
-        onClose={handleClose}
+        onClose={close}
       >
         <Box className={style.modalBox}>
           {children}

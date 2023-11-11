@@ -19,7 +19,7 @@ const HostManager: FC = () => {
                     Hosts
                 </Title>
                 <AddButton onClickOpen={open} />
-                <Popup isOpened={isOpened} handleClose={close}>
+                <Popup isOpened={isOpened} close={close}>
                     <h2>Add new host</h2>
                 </Popup>
             </div>

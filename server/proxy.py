@@ -3,7 +3,7 @@ import mimetypes
 from mitmproxy import http
 import json
 
-store_file = open ("../store.json", "r")
+store_file = open ("store.json", "r")
 store = json.loads(store_file.read())
 
 # Хосты, на которых происходит подмена файлов

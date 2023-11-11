@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 import Popup from '../popup';
 import Title from '../shared/title';
-import List from '../shared/list';
+// import List from '../shared/list';
 import AddButton from '../shared/add-button';
 
 import style from './index.module.css';
@@ -23,7 +23,7 @@ const HostManager: FC = () => {
                     <h2>Add new host</h2>
                 </Popup>
             </div>
-            <List />
+            {/*<List />*/}
         </div>
     );
 };

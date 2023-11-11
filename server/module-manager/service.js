@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const fileName = '../store.json';
+const fileName = 'store.json';
 
 class ModuleService {
     static async create({ moduleName, localPath }) {

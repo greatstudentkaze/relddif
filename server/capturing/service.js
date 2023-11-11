@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const PROXY_PORT = 1232;
 
-const ADAPTER = 'Wi-Fi';
+const fileName = 'store.json';
 
 class CapturingService {
     static #mitmdumpProcess = null;
@@ -27,9 +27,10 @@ class CapturingService {
         return proxyState.Enabled === 'Yes';
     }
 
-    static getCapturingState = () => {
-        const webProxyState = execSync(`networksetup -getwebproxy "${ADAPTER}"`).toString();
-        const secureWebProxyState = execSync(`networksetup -getsecurewebproxy "${ADAPTER}"`).toString();
+    static getCapturingState = async () => {
+        const adapter = await this.getSelectedNetworkService();
+        const webProxyState = execSync(`networksetup -getwebproxy "${adapter}"`).toString();
+        const secureWebProxyState = execSync(`networksetup -getsecurewebproxy "${adapter}"`).toString();
 
         const isWebProxyEnabled = this.#isProxyEnabled(this.#parseProxyState(webProxyState));
         const isSecureWebProxyEnabled = this.#isProxyEnabled(this.#parseProxyState(secureWebProxyState));
@@ -40,16 +41,18 @@ class CapturingService {
         };
     }
 
-    static #enableProxy = () => {
-        execSync(`networksetup -setwebproxystate "${ADAPTER}" on`);
-        execSync(`networksetup -setwebproxy "${ADAPTER}" localhost ${PROXY_PORT}`);
-        execSync(`networksetup -setsecurewebproxystate "${ADAPTER}" on`);
-        execSync(`networksetup -setsecurewebproxy "${ADAPTER}" localhost ${PROXY_PORT}`);
+    static #enableProxy = async () => {
+        const adapter = await this.getSelectedNetworkService();
+        execSync(`networksetup -setwebproxystate "${adapter}" on`);
+        execSync(`networksetup -setwebproxy "${adapter}" localhost ${PROXY_PORT}`);
+        execSync(`networksetup -setsecurewebproxystate "${adapter}" on`);
+        execSync(`networksetup -setsecurewebproxy "${adapter}" localhost ${PROXY_PORT}`);
     }
 
-    static #disableProxy = () => {
-        execSync(`networksetup -setwebproxystate "${ADAPTER}" off`);
-        execSync(`networksetup -setsecurewebproxystate "${ADAPTER}" off`);
+    static #disableProxy = async () => {
+        const adapter = await this.getSelectedNetworkService();
+        execSync(`networksetup -setwebproxystate "${adapter}" off`);
+        execSync(`networksetup -setsecurewebproxystate "${adapter}" off`);
     }
 
     static #enableMitmdump = async () => {
@@ -98,14 +101,89 @@ class CapturingService {
         this.#mitmdumpProcess = null;
     }
 
-    static enable = () => {
-        this.#enableProxy();
-        this.#enableMitmdump();
+    static enable = async () => {
+        await this.#enableProxy();
+        await this.#enableMitmdump();
     }
 
-    static disable = () => {
-        this.#disableProxy();
-        this.#disableMitmdump();
+    static disable = async () => {
+        await this.#disableProxy();
+        await this.#disableMitmdump();
+    }
+
+    static getAllNetworkServices = () => {
+        const allNetworkServicesOutput = execSync('networksetup -listallnetworkservices').toString().split('\n');
+        return allNetworkServicesOutput.slice(1, allNetworkServicesOutput.length - 1);
+    }
+
+    static setNetworkService = async (networkService) => {
+        const allNetworkServices = this.getAllNetworkServices();
+        if (!allNetworkServices.includes(networkService)) {
+            throw new Error(`${networkService} not found`);
+        }
+
+        const { enabled } = await CapturingService.getCapturingState();
+        if (enabled) {
+            await this.disable();
+        }
+
+        const store = await this.#setSelectedNetworkServiceToStore(networkService);
+
+        if (enabled) {
+            await this.enable();
+        }
+
+        return store;
+    }
+
+    static getSelectedNetworkService = async () => {
+        let store = { ...await this.#getStore() };
+        const { networkService = '' } = store;
+
+        const allNetworkServices = this.getAllNetworkServices();
+        if (!allNetworkServices.includes(networkService)) {
+            store = await this.#setSelectedNetworkServiceToStore('Wi-Fi');
+        }
+
+        return store.networkService;
+    }
+
+    static #setSelectedNetworkServiceToStore = async (networkService) => {
+        let store = { ...await this.#getStore() };
+
+        store.networkService = networkService;
+
+        store = await this.#updateStore(store);
+
+        return store;
+    }
+
+    static #getStore() {
+        return new Promise(function(resolve, reject) {
+            fs.readFile(fileName, 'utf8', (err, data) => {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(JSON.parse(data));
+            });
+        });
+    }
+
+    static #updateStore(newStore) {
+        return new Promise(function(resolve, reject) {
+            fs.writeFile(fileName, JSON.stringify(newStore, null, 2), function writeJSON(err) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                    return;
+                }
+
+                resolve(JSON.parse(fs.readFileSync(fileName, 'utf8')).modules);
+            });
+        });
     }
 }
 

@@ -19,6 +19,8 @@ router.delete('/modules', userController.deleteModule);
 router.patch('/modules/:moduleName', userController.updateModule);
 router.get('/capturing', userController.getCapturingState);
 router.post('/capturing', userController.updateCapturingState);
+router.get('/network-services', userController.getAllNetworkServices);
+router.post('/network-services', userController.setNetworkService);
 router.get('/hosts', userController.getAllHosts);
 router.post('/hosts', userController.createHost);
 router.delete('/hosts/:host', userController.deleteHost);

@@ -169,9 +169,33 @@ class UserController {
 
     async getCapturingState(req, res, next) {
         try {
-            const capturingState = CapturingService.getCapturingState();
+            const capturingState = await CapturingService.getCapturingState();
 
             return res.json(capturingState);
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async getAllNetworkServices(req, res, next) {
+        try {
+            const allNetworkServices = CapturingService.getAllNetworkServices();
+            const selectedNetworkService = await CapturingService.getSelectedNetworkService();
+
+            return res.json({
+                selected: selectedNetworkService,
+                items: allNetworkServices
+            });
+        } catch (e) {
+            next(e);
+        }
+    }
+
+    async setNetworkService(req, res, next) {
+        try {
+            await CapturingService.setNetworkService(req.body.name);
+
+            return res.json();
         } catch (e) {
             next(e);
         }

@@ -1,0 +1,18 @@
+{
+    "root": true,
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "jsx-quotes": [
+            "error",
+            "prefer-double"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ]
+    },
+    "extends": "react-app"
+}

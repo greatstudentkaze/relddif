@@ -1,21 +1,16 @@
 import { FC, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useForm } from "react-hook-form";
-import { Button } from "@mui/material";
 
 import { ModuleService, AddModulePayload } from './service';
-import Popup from '../popup';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
-import InputField from '../shared/Input-field';
+import AddModuleFormPopup from './AddModuleFormPopup';
 
 import style from './index.module.css';
 
 const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
-    const methods = useForm();
-    const { control, handleSubmit, reset } = methods;
 
     const { isLoading, isSuccess, data, refetch } = useQuery(
         'modules',
@@ -55,12 +50,6 @@ const ModuleManager: FC = () => {
 
     const onSubmit = ({moduleName, localPath}: AddModulePayload): void => {
         addModuleMutation.mutate({ moduleName, localPath });
-        if (isSuccess) {
-            reset({
-                moduleName: "",
-                localPath: ""
-            });
-        }
     }
 
     return (
@@ -70,28 +59,11 @@ const ModuleManager: FC = () => {
                     Modules
                 </Title>
                 <AddButton onClickOpen={open} />
-                <Popup isOpened={isOpened} handleClose={close}>
-                    <Title>
-                        Add new module
-                    </Title>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className={style.form}>
-                            <InputField
-                                fieldName="moduleName"
-                                control={control}
-                                rules={{required: 'Module name is required'}}
-                                label="Module name"
-                            />
-                            <InputField
-                                fieldName="localPath"
-                                control={control}
-                                rules={{required: 'Local path is required'}}
-                                label="Local path"
-                            />
-                        </div>
-                        <Button type="submit" variant="contained">Submit</Button>
-                    </form>
-                </Popup>
+                <AddModuleFormPopup
+                    isOpened={isOpened}
+                    onSubmitForm={onSubmit}
+                    close={close}
+                />
             </div>
             <List
                 items={data}

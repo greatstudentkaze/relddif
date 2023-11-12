@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import Title from '../shared/title';
 import Popup from '../popup';
-import InputField from '../shared/Input-field';
+import InputField from '../shared/input-field';
 
 import { AddModuleFormProps } from './interface';
 import { AddModulePayload } from './service';

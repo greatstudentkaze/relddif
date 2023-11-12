@@ -1,12 +1,12 @@
-import { FC } from "react";
-import { Button } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FC } from 'react';
+import { Button } from '@mui/material';
+import { useForm } from 'react-hook-form';
 
 import Title from '../shared/title';
 import Popup from '../popup';
 import InputField from '../shared/Input-field';
 
-import { AddModuleFormProps } from "./interface";
+import { AddModuleFormProps } from './interface';
 import { AddModulePayload } from './service';
 
 import style from './index.module.css';

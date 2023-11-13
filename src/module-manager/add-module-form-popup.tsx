@@ -43,7 +43,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
     }
 
     return(
-        <Popup isOpened={isOpened} handleClose={close}>
+        <Popup isOpened={isOpened} close={close}>
             <Title>
                 Add new module
             </Title>

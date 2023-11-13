@@ -33,7 +33,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
                 moduleName: "",
                 localPath: ""
             });
-            
+
             refetch();
         },
     });
@@ -41,9 +41,9 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
      const onSubmit = ({moduleName, localPath}: AddModulePayload): void => {
         mutation.mutate({ moduleName, localPath });
     }
-    
+
     return(
-        <Popup isOpened={isOpened} handleClose={close}>
+        <Popup isOpened={isOpened} close={close}>
             <Title>
                 Add new module
             </Title>

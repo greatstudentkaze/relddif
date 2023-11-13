@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
-import { ModuleService, AddModulePayload } from './service';
+import { ModuleService } from './service';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
@@ -24,13 +24,6 @@ const ModuleManager: FC = () => {
         },
     });
 
-    const addModuleMutation = useMutation({
-        mutationFn: ModuleService.addModule,
-        onSuccess: () => {
-            refetch();
-        },
-    });
-
     const open = () => setIsOpened(true);
     const close = () => setIsOpened(false);
 
@@ -48,10 +41,6 @@ const ModuleManager: FC = () => {
         mutation.mutate({ moduleName: module, enabled: isEnabled });
     };
 
-    const onSubmit = ({moduleName, localPath}: AddModulePayload): void => {
-        addModuleMutation.mutate({ moduleName, localPath });
-    }
-
     return (
         <div>
             <div className={style.moduleHeader}>
@@ -61,7 +50,6 @@ const ModuleManager: FC = () => {
                 <AddButton onClickOpen={open} />
                 <AddModuleFormPopup
                     isOpened={isOpened}
-                    onSubmitForm={onSubmit}
                     close={close}
                 />
             </div>

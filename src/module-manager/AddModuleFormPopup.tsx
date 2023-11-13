@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQuery } from 'react-query';
 
 import Title from '../shared/title';
 import Popup from '../popup';
 import InputField from '../shared/input-field';
 
+import { ModuleService, AddModulePayload } from './service';
 import { AddModuleFormProps } from './interface';
-import { AddModulePayload } from './service';
 
 import style from './index.module.css';
 
@@ -16,17 +17,29 @@ const INPUT_RULES = {
     localPath: {required: 'Local path is required'},
 };
 
-const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, onSubmitForm, close}) => {
+const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
     const methods = useForm<AddModulePayload>();
     const { control, handleSubmit, reset, formState: {errors} } = methods;
-    
-    const onSubmit = (data: AddModulePayload) => {
-        onSubmitForm(data);
-        
-        reset({
-            moduleName: "",
-            localPath: ""
-        });
+
+    const { isLoading, isSuccess, data, refetch } = useQuery(
+        'modules',
+        ModuleService.getModules,
+    );
+
+    const mutation = useMutation({
+        mutationFn: ModuleService.addModule,
+        onSuccess: () => {
+            reset({
+                moduleName: "",
+                localPath: ""
+            });
+            
+            refetch();
+        },
+    });
+
+     const onSubmit = ({moduleName, localPath}: AddModulePayload): void => {
+        mutation.mutate({ moduleName, localPath });
     }
     
     return(

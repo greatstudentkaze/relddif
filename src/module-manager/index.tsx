@@ -5,7 +5,7 @@ import { ModuleService } from './service';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
-import AddModuleFormPopup from './AddModuleFormPopup';
+import AddModuleFormPopup from './add-module-form-popup';
 
 import style from './index.module.css';
 

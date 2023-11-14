@@ -22,5 +22,7 @@ h2
 @media (max-width: 420px) {
     .modalBox {
         padding: 20px;
+        min-width: 320px;
+        min-width: 320px;
     }
 }

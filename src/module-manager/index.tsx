@@ -2,10 +2,10 @@ import { FC, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 
 import { ModuleService } from './service';
-import Popup from '../popup';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
+import AddModuleFormPopup from './add-module-form-popup';
 
 import style from './index.module.css';
 
@@ -14,7 +14,7 @@ const ModuleManager: FC = () => {
 
     const { isLoading, isSuccess, data, refetch } = useQuery(
         'modules',
-        ModuleService.getModules
+        ModuleService.getModules,
     );
 
     const mutation = useMutation({
@@ -48,9 +48,10 @@ const ModuleManager: FC = () => {
                     Modules
                 </Title>
                 <AddButton onClickOpen={open} />
-                <Popup isOpened={isOpened} close={close}>
-                    <h2>Add new module</h2>
-                </Popup>
+                <AddModuleFormPopup
+                    isOpened={isOpened}
+                    close={close}
+                />
             </div>
             <List
                 items={data}

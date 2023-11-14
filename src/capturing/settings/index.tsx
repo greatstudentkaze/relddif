@@ -7,7 +7,7 @@ import Popup from '../../popup';
 
 import { NetworkServiceSelector } from './network-service-selector';
 
-import styles from './settings.module.css';
+// import styles from './settings.module.css';
 
 export const CapturingSettings = () => {
     const [isSettingsPopupOpened, setIsSettingsPopupOpened] = useState(false);
@@ -21,7 +21,7 @@ export const CapturingSettings = () => {
                 isOpened={isSettingsPopupOpened}
                 close={() => setIsSettingsPopupOpened(false)}
             >
-                <Title className={styles.title} variant="h5">
+                <Title sx={{ mb: 4 }}>
                     Capturing settings
                 </Title>
 

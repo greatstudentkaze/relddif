@@ -1,19 +1,21 @@
 import { FC, PropsWithChildren } from 'react';
 import { Typography } from '@mui/material';
-import { Variant } from '@mui/material/styles/createTypography';
+import { TypographyOwnProps } from '@mui/material/Typography/Typography';
 
 interface TitleProps {
     className?: string;
-    variant?: Variant;
+    variant?: TypographyOwnProps['variant'];
+    sx?: TypographyOwnProps['sx']
 }
 
 const Title: FC<PropsWithChildren<TitleProps>> = ({
     variant = 'h4',
     className,
+    sx,
     children
 }) => {
     return(
-        <Typography className={className} variant={variant} component="h2">
+        <Typography sx={sx} className={className} variant={variant} component="h2">
             {children}
         </Typography>
     );

@@ -44,7 +44,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
 
     return(
         <Popup isOpened={isOpened} close={close}>
-            <Title>
+            <Title sx={{ mb: 4 }}>
                 Add new module
             </Title>
             <form className={style.form} onSubmit={handleSubmit(onSubmit)}>

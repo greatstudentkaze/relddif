@@ -21,7 +21,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
     const methods = useForm<AddModulePayload>();
     const { control, handleSubmit, reset, formState: {errors} } = methods;
 
-    const { isLoading, isSuccess, data, refetch } = useQuery(
+    const { refetch } = useQuery(
         'modules',
         ModuleService.getModules,
     );
@@ -62,7 +62,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
                     rules={INPUT_RULES.localPath}
                     label="Local path"
                 />
-                <Button type="submit" variant="contained">Submit</Button>
+                <Button sx={{ mt: 1.75 }} type="submit" variant="contained">Submit</Button>
             </form>
         </Popup>
     );

@@ -1,9 +1,8 @@
 const { execSync, spawn } = require('child_process');
-const fs = require('fs');
+const { Store } = require('../store.js');
 
 const PROXY_PORT = 1232;
 
-const fileName = 'store.json';
 
 class CapturingService {
     static #mitmdumpProcess = null;
@@ -137,7 +136,7 @@ class CapturingService {
     }
 
     static getSelectedNetworkService = async () => {
-        let store = { ...await this.#getStore() };
+        let store = { ...await Store.get() };
         const { networkService = '' } = store;
 
         const allNetworkServices = this.getAllNetworkServices();
@@ -149,41 +148,13 @@ class CapturingService {
     }
 
     static #setSelectedNetworkServiceToStore = async (networkService) => {
-        let store = { ...await this.#getStore() };
+        let store = { ...await Store.get() };
 
         store.networkService = networkService;
 
-        store = await this.#updateStore(store);
+        store = await Store.set(store);
 
         return store;
-    }
-
-    static #getStore() {
-        return new Promise(function(resolve, reject) {
-            fs.readFile(fileName, 'utf8', (err, data) => {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                    return;
-                }
-
-                resolve(JSON.parse(data));
-            });
-        });
-    }
-
-    static #updateStore(newStore) {
-        return new Promise(function(resolve, reject) {
-            fs.writeFile(fileName, JSON.stringify(newStore, null, 2), function writeJSON(err) {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                    return;
-                }
-
-                resolve(JSON.parse(fs.readFileSync(fileName, 'utf8')).modules);
-            });
-        });
     }
 }
 

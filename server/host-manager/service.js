@@ -1,10 +1,8 @@
-const fs = require('fs');
-
-const fileName = 'store.json';
+const { Store } = require('../store.js');
 
 class HostService {
     static async create({ host }) {
-        const newStore = { ...await this.#getStore() };
+        const newStore = { ...await Store.get() };
 
         if (!newStore.hosts) {
             newStore.hosts = {};
@@ -15,17 +13,19 @@ class HostService {
             "enabled": true
         };
 
-        return this.#updateStore(newStore);
+        const store = await Store.set(newStore);
+
+        return store.hosts;
     }
 
     static async getAll() {
-        const { hosts } = await this.#getStore();
+        const { hosts } = await Store.get();
 
         return hosts ?? {};
     }
 
     static async delete(host) {
-        const newStore = { ...await this.#getStore() };
+        const newStore = { ...await Store.get() };
 
         if (!newStore.hosts.hasOwnProperty(host)) {
             throw new Error(`${host} not found`);
@@ -33,37 +33,9 @@ class HostService {
 
         delete newStore.hosts[host];
 
-        return this.#updateStore(newStore);
-    }
+        const store = await Store.set(newStore);
 
-    static #getStore() {
-        return new Promise(function(resolve, reject) {
-            fs.readFile(fileName, 'utf8', (err, data) => {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                    return;
-                }
-
-                resolve(JSON.parse(data));
-            });
-        });
-    }
-
-    static #updateStore(newStore) {
-        const self = this;
-
-        return new Promise(function(resolve, reject) {
-            fs.writeFile(fileName, JSON.stringify(newStore, null, 2), async (err) => {
-                if (err) {
-                    console.log(err);
-                    reject(err);
-                    return;
-                }
-
-                resolve(await self.getAll());
-            });
-        });
+        return store.hosts;
     }
 }
 

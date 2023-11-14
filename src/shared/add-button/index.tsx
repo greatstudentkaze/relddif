@@ -7,7 +7,7 @@ import { AddButtonProps } from "./interface";
 const AddButton: FC<AddButtonProps> = ({onClickOpen}) => {
     return (
         <IconButton onClick={onClickOpen} aria-label="open" size="large">
-            <Icon fontSize="inherit" color="primary">add_circle</Icon>
+            <Icon fontSize="inherit" color="primary">Add</Icon>
         </IconButton>
     );
 };

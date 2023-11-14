@@ -1,5 +1,5 @@
 {
-  "networkService": "Wi-Fi",
+  "networkService": "SATECHI USB 10/100/1000 LAN",
   "modules": {
     "Vehicle": {
       "remotePrefix": "/static/resources/Vehicle/",

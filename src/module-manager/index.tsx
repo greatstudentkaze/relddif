@@ -5,6 +5,7 @@ import { ModuleService } from './service';
 import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
+import { Confirmation } from '../shared/confirmation';
 import AddModuleFormPopup from './add-module-form-popup';
 import { QUERY_KEY } from './constants';
 
@@ -12,6 +13,7 @@ import style from './index.module.css';
 
 const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
+    const [moduleNameToDelete, setModuleNameToDelete] = useState<string | null>(null);
 
     const { isLoading, isSuccess, data, refetch } = useQuery(
         QUERY_KEY.GET_MODULES,
@@ -31,6 +33,14 @@ const ModuleManager: FC = () => {
             refetch();
         }
     });
+
+    const handleDeleteConfirmationResult = (shouldDelete: boolean) => {
+        if (shouldDelete && moduleNameToDelete) {
+            deleteModuleMutation.mutate(moduleNameToDelete);
+        }
+
+        setModuleNameToDelete(null);
+    };
 
     const open = () => setIsOpened(true);
     const close = () => setIsOpened(false);
@@ -64,7 +74,12 @@ const ModuleManager: FC = () => {
             <List
                 items={data}
                 onToggle={(name, checked) => toggleModule(name, checked)}
-                deleteItem={(name) => deleteModuleMutation.mutate(name)}
+                deleteItem={(name) => setModuleNameToDelete(name)}
+            />
+            <Confirmation
+                isOpened={Boolean(moduleNameToDelete)}
+                close={() => setModuleNameToDelete(null)}
+                onResult={handleDeleteConfirmationResult}
             />
         </div>
     );

@@ -12,6 +12,7 @@ const Popup: FC<PopupProps> = ({ children, isOpened, close }) => {
       <Modal
         open={isOpened}
         onClose={close}
+        disableRestoreFocus
       >
         <Box className={style.modalBox}>
           {children}

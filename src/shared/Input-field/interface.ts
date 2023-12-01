@@ -10,4 +10,5 @@ export interface InputFieldProps {
     rules: InputFieldRules,
     label: string,
     error?: FieldError | undefined,
+    autoFocus?: boolean;
 }

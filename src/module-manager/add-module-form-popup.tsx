@@ -51,6 +51,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
             </Title>
             <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
                 <InputField
+                    autoFocus
                     name="moduleName"
                     control={control}
                     error={errors.moduleName}

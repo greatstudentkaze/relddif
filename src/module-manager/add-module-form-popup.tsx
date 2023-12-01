@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 import Title from '../shared/title';
 import Popup from '../popup';
 import InputField from '../shared/input-field';
+import { QUERY_KEY } from './constants';
 
 import { ModuleService, AddModulePayload } from './service';
 import { AddModuleFormProps } from './interface';
@@ -21,10 +22,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
     const methods = useForm<AddModulePayload>();
     const { control, handleSubmit, reset, formState: {errors} } = methods;
 
-    const { refetch } = useQuery(
-        'modules',
-        ModuleService.getModules,
-    );
+    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: ModuleService.addModule,
@@ -34,7 +32,7 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
                 localPath: ""
             });
 
-            refetch();
+            queryClient.invalidateQueries({ queryKey: QUERY_KEY.GET_MODULES });
 
             close();
         },

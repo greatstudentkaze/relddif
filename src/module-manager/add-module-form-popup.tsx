@@ -35,6 +35,8 @@ const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
             });
 
             refetch();
+
+            close();
         },
     });
 

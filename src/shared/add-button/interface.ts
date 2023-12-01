@@ -1,3 +1,3 @@
 export interface AddButtonProps {
-    onClickOpen: () => void;
+    onClick: () => void;
 }

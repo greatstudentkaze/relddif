@@ -6,6 +6,7 @@ import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
 import AddModuleFormPopup from './add-module-form-popup';
+import { QUERY_KEY } from './constants';
 
 import style from './index.module.css';
 
@@ -13,7 +14,7 @@ const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
 
     const { isLoading, isSuccess, data, refetch } = useQuery(
-        'modules',
+        QUERY_KEY.GET_MODULES,
         ModuleService.getModules,
     );
 
@@ -22,6 +23,13 @@ const ModuleManager: FC = () => {
         onSuccess: () => {
             refetch();
         },
+    });
+
+    const deleteModuleMutation = useMutation({
+        mutationFn: ModuleService.deleteModule,
+        onSuccess: () => {
+            refetch();
+        }
     });
 
     const open = () => setIsOpened(true);
@@ -56,6 +64,7 @@ const ModuleManager: FC = () => {
             <List
                 items={data}
                 onToggle={(name, checked) => toggleModule(name, checked)}
+                deleteItem={(name) => deleteModuleMutation.mutate(name)}
             />
         </div>
     );

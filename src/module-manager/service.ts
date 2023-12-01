@@ -37,6 +37,19 @@ export class ModuleService {
         }
     };
 
+    static deleteModule = async (moduleName: string): Promise<void> => {
+        try {
+            await api.delete('modules', {
+                data: {
+                    moduleName
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    };
+
     static toggleModuleState = async (payload: ToggleModuleStatePayload): Promise<void> => {
         try {
             await api.post('modules/enable', payload)

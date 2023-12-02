@@ -8,9 +8,14 @@ class ModuleService {
             newStore.modules = {};
         }
 
+        let localPrefix = localPath;
+        if (localPrefix.at(-1) !== '/') {
+            localPrefix += '/';
+        }
+
         newStore.modules[moduleName] = {
             "remotePrefix": `/static/resources/${moduleName}/`,
-            "localPrefix": localPath,
+            "localPrefix": localPrefix,
             "enabled": true
         };
 

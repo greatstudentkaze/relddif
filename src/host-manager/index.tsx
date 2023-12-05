@@ -7,6 +7,7 @@ import List from '../shared/list';
 import AddButton from '../shared/add-button';
 import { QUERY_KEY } from './constants';
 import { HostService } from './service';
+import { AddHostForm } from './add-host-form';
 
 import style from './index.module.css';
 
@@ -44,12 +45,12 @@ const HostManager: FC = () => {
     return (
          <div>
             <div className={style.moduleHeader}>
-                <Title>
-                    Hosts
-                </Title>
+                <Title>Hosts</Title>
+
                 <AddButton onClick={open} />
                 <Popup isOpened={isOpened} close={close}>
-                    <h2>Add new host</h2>
+                    <Title sx={{ mb: 4 }}>Add new host</Title>
+                    <AddHostForm onSubmit={close} />
                 </Popup>
             </div>
              <List

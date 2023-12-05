@@ -22,7 +22,7 @@ const InputField: FC<InputFieldProps> = ({
                     autoFocus={autoFocus}
                     value={value}
                     onChange={onChange}
-                    error={error}
+                    error={Boolean(error)}
                     label={label}
                     variant="standard"
                 />

@@ -1,9 +1,9 @@
 import { api } from '../shared/api';
 
-// export interface AddModulePayload {
-//     moduleName: string,
-//     localPath: string,
-// }
+export interface AddHostPayload {
+    host: string;
+    // origin?: string,
+}
 
 export type GetHostsResponse = Record<string, {
     origin: string;
@@ -12,7 +12,7 @@ export type GetHostsResponse = Record<string, {
 
 interface ToggleHostStatePayload {
     host: string;
-    enabled: boolean
+    enabled: boolean;
 }
 
 export class HostService {
@@ -27,15 +27,15 @@ export class HostService {
         }
     };
 
-    // static addModule = async (payload: AddModulePayload): Promise<void> => {
-    //     try {
-    //         await api.post('modules', payload);
-    //     } catch (err) {
-    //         console.log(err);
-    //         throw err;
-    //     }
-    // };
-    //
+    static addHost = async (payload: AddHostPayload): Promise<void> => {
+        try {
+            await api.post('hosts', payload);
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+    };
+
     // static deleteModule = async (moduleName: string): Promise<void> => {
     //     try {
     //         await api.delete('modules', {

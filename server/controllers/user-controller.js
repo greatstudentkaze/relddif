@@ -1,9 +1,6 @@
 // const userService = require('../service/user-service');
 // const {validationResult} = require('express-validator');
 // const ApiError = require('../exceptions/api-error');
-const fileName = '../store.json';
-const store = require(fileName);
-const fs = require('fs');
 const { CapturingService } = require('../capturing/service.js');
 const { ModuleService } = require('../module-manager/service.js');
 const { HostService } = require('../host-manager/service.js');
@@ -158,10 +155,22 @@ class UserController {
         }
     }
 
-    async getUsers(req, res, next) {
+    async toggleHostState(req, res, next) {
         try {
-            const users = await userService.getAllUsers();
-            return res.json(users);
+            const { host, enabled } = req.body;
+
+            const { enabled: isCapturingEnabled } = await CapturingService.getCapturingState();
+            if (isCapturingEnabled) {
+                await CapturingService.disable();
+            }
+
+            const hosts = await HostService.update(host, { enabled });
+
+            if (isCapturingEnabled) {
+                await CapturingService.enable();
+            }
+
+            return res.json(hosts);
         } catch (e) {
             next(e);
         }

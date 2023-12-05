@@ -23,6 +23,7 @@ router.get('/network-services', userController.getAllNetworkServices);
 router.post('/network-services', userController.setNetworkService);
 router.get('/hosts', userController.getAllHosts);
 router.post('/hosts', userController.createHost);
+router.post('/hosts/toggle', userController.toggleHostState);
 router.delete('/hosts/:host', userController.deleteHost);
 
 module.exports = router

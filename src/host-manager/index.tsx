@@ -1,9 +1,12 @@
 import { FC, useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
 
 import Popup from '../popup';
 import Title from '../shared/title';
-// import List from '../shared/list';
+import List from '../shared/list';
 import AddButton from '../shared/add-button';
+import { QUERY_KEY } from './constants';
+import { HostService } from './service';
 
 import style from './index.module.css';
 
@@ -11,6 +14,32 @@ const HostManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
     const open = () => setIsOpened(true);
     const close = () => setIsOpened(false);
+
+    const { isLoading, isSuccess, data, refetch } = useQuery(
+        QUERY_KEY.GET_HOSTS,
+        HostService.getHosts,
+    );
+
+    const toggleStateMutation = useMutation({
+        mutationFn: HostService.toggleHostState,
+        onSuccess: () => {
+            refetch();
+        },
+    });
+
+    const toggleHost = (host: string, isEnabled: boolean): void => {
+        toggleStateMutation.mutate({ host, enabled: isEnabled });
+    };
+
+    if (isLoading) {
+        return null;
+    }
+
+    if (!isSuccess) {
+        return (
+            <p>An error occurred :(</p>
+        )
+    }
 
     return (
          <div>
@@ -23,7 +52,11 @@ const HostManager: FC = () => {
                     <h2>Add new host</h2>
                 </Popup>
             </div>
-            {/*<List />*/}
+             <List
+                 items={data}
+                 onToggle={(name, checked) => toggleHost(name, checked)}
+                 // deleteItem={(name) => setModuleNameToDelete(name)}
+             />
         </div>
     );
 };

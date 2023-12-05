@@ -9,7 +9,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import styles from './index.module.css';
 
-export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string; deleteItem: (name: string) => void; }) {
+export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string; deleteItem?: (name: string) => void; }) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -19,7 +19,18 @@ export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string
         setAnchorEl(null);
     };
 
+    const isVisible = Boolean(deleteItem);
+
+    if (!isVisible) {
+        return null;
+    }
+
     const handleDeleteClick = () => {
+        if (!deleteItem) {
+            console.warn('deleteItem callback not specified');
+            return;
+        }
+
         deleteItem(moduleName);
     };
 
@@ -45,7 +56,7 @@ export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string
                 }}
             >
                 {/*<MenuItem onClick={handleClose}>Edit</MenuItem>*/}
-                <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
+                {deleteItem && <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>}
             </Menu>
         </div>
     );
@@ -55,7 +66,7 @@ export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string
 interface ListProps {
     items: Record<string, { enabled: boolean; }>;
     onToggle: (name: string, checked: boolean) => void;
-    deleteItem: (name: string) => void;
+    deleteItem?: (name: string) => void;
 }
 
 const List: FC<ListProps> = ({ items, onToggle, deleteItem }) => {

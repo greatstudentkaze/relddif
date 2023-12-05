@@ -37,6 +37,26 @@ class HostService {
 
         return store.hosts;
     }
+
+    static async update(host, { origin, enabled }) {
+        const newStore = await Store.get();
+
+        if (!newStore.hosts?.hasOwnProperty(host)) {
+            throw new Error(`${host} not found`);
+        }
+
+        if (origin) {
+            newStore.hosts[host].origin = origin;
+        }
+
+        if (typeof enabled === 'boolean') {
+            newStore.hosts[host].enabled = enabled;
+        }
+
+        const store = await Store.set(newStore);
+
+        return store.hosts;
+    }
 }
 
 module.exports = { HostService };

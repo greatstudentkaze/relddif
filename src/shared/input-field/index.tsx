@@ -17,11 +17,12 @@ const InputField: FC<InputFieldProps> = ({
             name={name}
             control={control}
             rules={rules}
-            render={({ field: { value, onChange } }) => (
+            render={({ field: { value, onChange, onBlur } }) => (
                 <TextField
                     autoFocus={autoFocus}
                     value={value}
                     onChange={onChange}
+                    onBlur={onBlur}
                     error={Boolean(error)}
                     label={label}
                     variant="standard"

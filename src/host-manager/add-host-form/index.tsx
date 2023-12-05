@@ -18,7 +18,11 @@ interface AddHostFormProps {
 }
 
 export const AddHostForm: FC<AddHostFormProps> = ({ onSubmit: onSubmitCallback }) => {
-    const methods = useForm<AddHostPayload>();
+    const methods = useForm<AddHostPayload>({
+        values: {
+            host: ''
+        }
+    });
     const { control, handleSubmit, reset, formState: { errors } } = methods;
 
     const queryClient = useQueryClient();

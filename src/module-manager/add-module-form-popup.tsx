@@ -19,7 +19,12 @@ const INPUT_RULES = {
 };
 
 const AddModuleFormPopup: FC<AddModuleFormProps> = ({isOpened, close}) => {
-    const methods = useForm<AddModulePayload>();
+    const methods = useForm<AddModulePayload>({
+        values: {
+            moduleName: '',
+            localPath: ''
+        }
+    });
     const { control, handleSubmit, reset, formState: {errors} } = methods;
 
     const queryClient = useQueryClient();

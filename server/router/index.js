@@ -13,6 +13,7 @@ const router = new Router();
 // router.post('/logout', userController.logout);
 // router.get('/activate/:link', userController.activate);
 router.get('/modules', userController.modules);
+router.get('/modules/:moduleName', userController.getModule);
 router.post('/modules/enable', userController.enableModule);
 router.post('/modules', userController.addModule);
 router.delete('/modules', userController.deleteModule);

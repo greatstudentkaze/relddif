@@ -9,7 +9,13 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import styles from './index.module.css';
 
-export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string; deleteItem?: (name: string) => void; }) {
+interface ItemActionsMenuProps {
+    moduleName: string;
+    deleteItem?: (name: string) => void;
+    editItem?: (name: string) => void;
+}
+
+export function ItemActionsMenu({ moduleName, deleteItem, editItem }: ItemActionsMenuProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -19,7 +25,7 @@ export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string
         setAnchorEl(null);
     };
 
-    const isVisible = Boolean(deleteItem);
+    const isVisible = Boolean(deleteItem || editItem);
 
     if (!isVisible) {
         return null;
@@ -32,6 +38,15 @@ export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string
         }
 
         deleteItem(moduleName);
+    };
+
+    const handleEditClick = () => {
+        if (!editItem) {
+            console.warn('editItem callback not specified');
+            return;
+        }
+
+        editItem(moduleName);
     };
 
     return (
@@ -55,7 +70,7 @@ export function ItemActionsMenu({ moduleName, deleteItem }: { moduleName: string
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {/*<MenuItem onClick={handleClose}>Edit</MenuItem>*/}
+                {editItem && <MenuItem onClick={handleEditClick}>Edit</MenuItem>}
                 {deleteItem && <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>}
             </Menu>
         </div>
@@ -67,9 +82,10 @@ interface ListProps {
     items: Record<string, { enabled: boolean; }>;
     onToggle: (name: string, checked: boolean) => void;
     deleteItem?: (name: string) => void;
+    editItem?: (name: string) => void;
 }
 
-const List: FC<ListProps> = ({ items, onToggle, deleteItem }) => {
+const List: FC<ListProps> = ({ items, onToggle, ...itemActions }) => {
     if (!items) {
         return (
             <p>No items</p>
@@ -86,7 +102,10 @@ const List: FC<ListProps> = ({ items, onToggle, deleteItem }) => {
                         checked={enabled}
                         onChange={(_, checked) => onToggle(name, checked)}
                     />
-                    <ItemActionsMenu moduleName={name} deleteItem={deleteItem} />
+                    <ItemActionsMenu
+                        moduleName={name}
+                        {...itemActions}
+                    />
                 </div>
             ))}
         </FormGroup>

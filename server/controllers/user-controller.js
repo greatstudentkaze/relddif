@@ -129,6 +129,16 @@ class UserController {
         }
     }
 
+    async getModule(req, res, next) {
+        try {
+            const module = await ModuleService.getByName(req.params.moduleName);
+
+            return res.json(module);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     async getAllHosts(req, res, next) {
         try {
             return res.json(await HostService.getAll());

@@ -49,6 +49,15 @@ class ModuleService {
         return modules ?? {};
     }
 
+    static async getByName(moduleName) {
+        const modules = await this.getAll();
+        if (!modules[moduleName]) {
+            throw new Error(`${moduleName} not found`);
+        }
+
+        return modules[moduleName];
+    }
+
     static async delete(moduleName) {
         const newStore = { ...await Store.get() };
 

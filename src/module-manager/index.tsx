@@ -6,6 +6,8 @@ import Title from '../shared/title';
 import List from '../shared/list';
 import AddButton from '../shared/add-button';
 import { Confirmation } from '../shared/confirmation';
+import Popup from '../popup';
+import EditModuleForm from './edit-module-form';
 import AddModuleFormPopup from './add-module-form-popup';
 import { QUERY_KEY } from './constants';
 
@@ -14,6 +16,7 @@ import style from './index.module.css';
 const ModuleManager: FC = () => {
     const [isOpened, setIsOpened] = useState(false);
     const [moduleNameToDelete, setModuleNameToDelete] = useState<string | null>(null);
+    const [moduleNameToEdit, setModuleNameToEdit] = useState<string | null>(null);
 
     const { isLoading, isSuccess, data, refetch } = useQuery(
         QUERY_KEY.GET_MODULES,
@@ -59,6 +62,8 @@ const ModuleManager: FC = () => {
         mutation.mutate({ moduleName: module, enabled: isEnabled });
     };
 
+    const closeEditModulePopup = () => setModuleNameToEdit(null);
+
     return (
         <div>
             <div className={style.moduleHeader}>
@@ -75,12 +80,17 @@ const ModuleManager: FC = () => {
                 items={data}
                 onToggle={(name, checked) => toggleModule(name, checked)}
                 deleteItem={(name) => setModuleNameToDelete(name)}
+                editItem={(name) => setModuleNameToEdit(name)}
             />
             <Confirmation
                 isOpened={Boolean(moduleNameToDelete)}
                 close={() => setModuleNameToDelete(null)}
                 onResult={handleDeleteConfirmationResult}
             />
+            <Popup isOpened={Boolean(moduleNameToEdit)} close={closeEditModulePopup}>
+                <Title sx={{ mb: 4 }}>Edit {moduleNameToEdit} module</Title>
+                <EditModuleForm moduleName={moduleNameToEdit!} onSubmit={closeEditModulePopup} />
+            </Popup>
         </div>
     );
 };
